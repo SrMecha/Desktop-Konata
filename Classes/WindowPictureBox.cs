@@ -2,22 +2,21 @@
 {
     public class WindowPictureBox : PictureBox
     {
-        private CharacterHitBox? _controledPicture;
+        private CharacterEntity? _controledPicture;
         private Point _pictureStartLocation;
         private Point _startLocation;
-        private List<CharacterHitBox> _characters = new();
 
         public WindowPictureBox(Rectangle screenBounds)
         {
-            MouseMove += PictureMouseMove!;
             MouseDown += PictureMouseDown!;
             MouseUp += PictureMouseUp!;
+            MouseMove += PictureMouseMove!;
             Bounds = screenBounds;
         }
 
         private void PictureMouseDown(object sender, MouseEventArgs args)
         {
-            foreach (var character in _characters)
+            foreach (var character in CharacterManager.Characters)
                 if (character.Bounds.Contains(args.Location))
                 {
                     _controledPicture = character;
@@ -44,21 +43,11 @@
         protected override void OnPaint(PaintEventArgs args)
         {
             ImageAnimator.UpdateFrames();
-            foreach (var character in _characters)
+            foreach (var character in CharacterManager.Characters)
             {
                 args.Graphics.DrawImage(character.AnimatedImage, character.Location.X, character.Location.Y);
             }
             Invalidate();
-        }
-
-        public void AddCharacter(Bitmap characterBitmap)
-        {
-            _characters.Add(new CharacterHitBox(characterBitmap, Bounds));
-        }
-
-        public void ClearCharacters()
-        {
-            _characters = new();
         }
 
     }

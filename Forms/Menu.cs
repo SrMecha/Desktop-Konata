@@ -1,9 +1,13 @@
-﻿using System.Windows.Forms;
+﻿using DesktopKonata.Utility;
+using System.Windows.Forms;
 
 namespace DesktopKonata.Forms
 {
     public partial class Menu : Form
     {
+        private readonly Screen[] AllScreens = Screen.AllScreens;
+        private readonly List<CharacterWindow> _windows = new();
+
         private NotifyIcon _notifyIcon = new()
         {
             Visible = true,
@@ -13,23 +17,27 @@ namespace DesktopKonata.Forms
             BalloonTipTitle = "Hey",
             BalloonTipText = "I`ll be here!"
         };
-        private CharacterWindow _characterWindow;
 
         public Menu()
         {
             InitializeComponent();
             _notifyIcon.MouseClick += NotifyIcon_MouseClick!;
-            _characterWindow = new();
         }
 
         private void Menu_Load(object sender, EventArgs args)
         {
-            _characterWindow.Show();
+            foreach (var screen in AllScreens)
+            {
+                var window = new CharacterWindow(screen);
+                window.SetBounds(screen.Bounds.X, screen.Bounds.Y, screen.Bounds.Width, screen.Bounds.Height);
+                _windows.Add(window);
+                window.Show();
+            }
         }
 
         private void KonataLoveToolStripMenuItem_Click(object sender, EventArgs args)
         {
-            _characterWindow.AddCharacter(Properties.Resources.KonataLoveDancingGif);
+            CharacterManager.AddCharacter(Properties.Resources.KonataLoveDancingGif);
         }
 
         private void HideInTray()
@@ -60,6 +68,7 @@ namespace DesktopKonata.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _notifyIcon.Visible = false;
             Application.Exit();
         }
 
@@ -70,7 +79,17 @@ namespace DesktopKonata.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            _characterWindow.GetCharacterPictureBox().ClearCharacters();
+            CharacterManager.ClearCharacters();
+        }
+
+        private void bananaKonataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CharacterManager.AddCharacter(Properties.Resources.BananaKonataGIF);
+        }
+
+        private void konataDanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CharacterManager.AddCharacter(Properties.Resources.KonataDancingGif);
         }
     }
 }

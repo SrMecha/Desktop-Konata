@@ -31,16 +31,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.KonataLoveStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bananaKonataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.konataDanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip2
             // 
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.KonataLoveStripMenuItem});
+            this.konataDanceToolStripMenuItem,
+            this.KonataLoveStripMenuItem,
+            this.bananaKonataToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(395, 24);
@@ -54,6 +58,13 @@
             this.KonataLoveStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.KonataLoveStripMenuItem.Text = "Konata Love";
             this.KonataLoveStripMenuItem.Click += new System.EventHandler(this.KonataLoveToolStripMenuItem_Click);
+            // 
+            // bananaKonataToolStripMenuItem
+            // 
+            this.bananaKonataToolStripMenuItem.Name = "bananaKonataToolStripMenuItem";
+            this.bananaKonataToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.bananaKonataToolStripMenuItem.Text = "Banana Konata";
+            this.bananaKonataToolStripMenuItem.Click += new System.EventHandler(this.bananaKonataToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -89,6 +100,13 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // konataDanceToolStripMenuItem
+            // 
+            this.konataDanceToolStripMenuItem.Name = "konataDanceToolStripMenuItem";
+            this.konataDanceToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.konataDanceToolStripMenuItem.Text = "Konata Dance";
+            this.konataDanceToolStripMenuItem.Click += new System.EventHandler(this.konataDanceToolStripMenuItem_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -119,5 +137,7 @@
         private Button button1;
         private Button button2;
         private Button button3;
+        private ToolStripMenuItem bananaKonataToolStripMenuItem;
+        private ToolStripMenuItem konataDanceToolStripMenuItem;
     }
 }

@@ -1,7 +1,8 @@
 ﻿namespace DesktopKonata.Utility
 {
-    public class CharacterHitBox
+    public class CharacterEntity : IDisposable
     {
+        private bool disposed = false;
         private Rectangle _bounds = new();
 
         public Rectangle Bounds
@@ -32,18 +33,42 @@
 
         public Bitmap AnimatedImage { get; init; }
 
-        public CharacterHitBox(Bitmap characterBitmap, Rectangle screenBounds)
+        public CharacterEntity(Bitmap characterBitmap, Rectangle screenBounds)
         {
-            AnimatedImage = characterBitmap;
             Size = characterBitmap.Size;
-            Left = Random.Shared.Next(0, screenBounds.Width - characterBitmap.Width);
-            Top = Random.Shared.Next(0, screenBounds.Height - characterBitmap.Height);
+            AnimatedImage = characterBitmap;
+            Left = Random.Shared.Next(0, screenBounds.Width - Size.Width);
+            Top = Random.Shared.Next(0, screenBounds.Height - Size.Height);
             ImageAnimator.Animate(AnimatedImage, new EventHandler(OnFrameChanged!));
         }
 
         private void OnFrameChanged(object sender, EventArgs args)
         {
 
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    ImageAnimator.StopAnimate(AnimatedImage, new EventHandler(OnFrameChanged!));
+                    AnimatedImage.Dispose();
+                }
+                disposed = true;
+            }
+        }
+
+        ~CharacterEntity()
+        {
+            Dispose(disposing: false);
         }
     }
 }
